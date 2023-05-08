@@ -3,16 +3,21 @@ package com.skeleton.dto;
 import lombok.Data;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Data
-public class CommonResponse {
+public class CommonResponse<T> {
 
     String resultMsg = "";
     String resultCode = "200";
-    Map<String, Object> resultData;
+    T resultData;
 
     public CommonResponse(){
-        resultData = new HashMap<>();
+        resultData = (T) new HashMap<>();
+    }
+
+    public CommonResponse(String resultCode, String resultMsg){
+        this.resultCode = resultCode;
+        this.resultMsg = resultMsg;
+        resultData = (T) new HashMap<>();
     }
 }
