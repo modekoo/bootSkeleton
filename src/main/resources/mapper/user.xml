@@ -3,9 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.skeleton.dao.UserDao">
-    <select id="selectByUserIdAndPassword" parameterType="UserDto" resultType="hashmap">
-        SELECT user_id
+    <select id="selectByUserIdAndPassword" parameterType="UserDto" resultType="com.skeleton.session.SessionUserInfo">
+        SELECT user_no
+             , user_id
              , password
+             , user_name
+             , dept_no
+             , company_no
           FROM user_info
          WHERE user_id = #{userId}
            AND password = #{password}

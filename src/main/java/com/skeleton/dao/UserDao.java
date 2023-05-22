@@ -1,15 +1,13 @@
 package com.skeleton.dao;
 
-import com.skeleton.dto.user.UserDto;
+import com.skeleton.dto.userInfo.LoginUserInfoDTO;
+import com.skeleton.session.SessionUserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.Map;
 
 @Repository
 @Mapper
 public interface UserDao {
-
-    Map<String, Object> selectByUserIdAndPassword(UserDto userDto);
+    SessionUserInfo selectByUserIdAndPassword(LoginUserInfoDTO loginUserInfoDTO);
 
 }
