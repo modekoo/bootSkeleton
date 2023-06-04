@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.skeleton.dao.UserDao">
-    <select id="selectByUserIdAndPassword" parameterType="UserDto" resultType="com.skeleton.session.SessionUserInfo">
+    <select id="selectByUserIdAndPassword" parameterType="LoginUserInfoDTO" resultType="com.skeleton.session.SessionUserInfo">
         SELECT user_no
              , user_id
              , password
