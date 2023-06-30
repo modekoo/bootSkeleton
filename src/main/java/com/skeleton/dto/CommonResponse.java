@@ -20,4 +20,5 @@ public class CommonResponse<T> {
         this.resultMsg = resultMsg;
         resultData = (T) new HashMap<>();
     }
+
 }

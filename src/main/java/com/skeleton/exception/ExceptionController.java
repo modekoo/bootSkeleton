@@ -4,6 +4,7 @@ import com.skeleton.dto.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,33 +25,37 @@ import javax.servlet.http.HttpServletRequest;
 public class ExceptionController<T> extends ResponseEntityExceptionHandler implements ErrorController {
 
     @RequestMapping(value = "/error")
-    public ResponseEntity<Object> handleError(HttpServletRequest request) {
+    protected ResponseEntity<Object> handleError(HttpServletRequest request) {
         Object statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         HttpStatus status = HttpStatus.valueOf(Integer.valueOf(statusCode.toString()));
-        return ResponseEntity.status(status.value()).body(new CommonResponse(String.valueOf(status.value()), status.getReasonPhrase()));
+        CommonResponse res = new CommonResponse(String.valueOf(status.value()), status.getReasonPhrase());
+        return new ResponseEntity<>(res, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return ResponseEntity.status(status.value()).body(new CommonResponse(String.valueOf(status.value()), ex.getAllErrors().stream().findFirst().get().getDefaultMessage()));
+        CommonResponse res = new CommonResponse(String.valueOf(status.value()), ex.getAllErrors().stream().findFirst().get().getDefaultMessage());
+        return new ResponseEntity<>(res, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return ResponseEntity.status(status.value()).body(new CommonResponse(String.valueOf(status.value()), ex.getMessage()));
+        CommonResponse res = new CommonResponse(String.valueOf(status.value()), ex.getMessage());
+        return new ResponseEntity<>(res, ErrorCodeEnum.INTERNAL_SERVER_ERROR.getStatus());
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception e) {
-        log.error("ExceptionHandler,,,\\n {}", ExceptionUtils.getStackTrace(e));
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(new CommonResponse(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()));
+    protected ResponseEntity<Object> handleException(Exception e) {
+        log.error("ExceptionHandler : {}", ExceptionUtils.getStackTrace(e));
+        CommonResponse res = new CommonResponse(ErrorCodeEnum.INTERNAL_SERVER_ERROR.getErrorCode() , ErrorCodeEnum.INTERNAL_SERVER_ERROR.getErrorMsg());
+        return new ResponseEntity<>(res, ErrorCodeEnum.INTERNAL_SERVER_ERROR.getStatus());
     }
 
     @ExceptionHandler(APIException.class)
-    public ResponseEntity<Object> handleAPIException(APIException e) {
-        log.error("APIExceptionHandler,,,\\n {}", ExceptionUtils.getStackTrace(e));
+    protected ResponseEntity<Object> handleAPIException(APIException e) {
+        log.error("APIExceptionHandler : {}", ExceptionUtils.getStackTrace(e));
         CommonResponse res = new CommonResponse(e.getErrorCode(), e.getErrorMsg());
 
-        return ResponseEntity.status(e.getStatus()).body(res);
+        return new ResponseEntity<>(res, ErrorCodeEnum.INTERNAL_SERVER_ERROR.getStatus());
     }
 }

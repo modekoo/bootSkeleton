@@ -42,7 +42,7 @@ public class UserService {
         UserInfo userInfo = userInfoRepository.findUserInfoByUserIdAndPassword(loginUserInfoDTO.getUserId(), loginUserInfoDTO.getPassword());
         if(userInfo != null) {
             sessionUserInfo.setUserInfo(userInfo);
-            res.setResultData(sessionUserInfo);
+            res.setResultData(userInfo);
         }
 
         return res;

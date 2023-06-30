@@ -1,3 +1,4 @@
+/*
 package com.skeleton.config;
 
 import org.apache.catalina.Context;
@@ -75,3 +76,4 @@ class TomcatClusterContextCustomizer implements TomcatContextCustomizer{
     }
 
 }
+*/
