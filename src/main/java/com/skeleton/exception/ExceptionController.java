@@ -2,6 +2,7 @@ package com.skeleton.exception;
 
 import com.skeleton.dto.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,11 +42,15 @@ public class ExceptionController<T> extends ResponseEntityExceptionHandler imple
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception e) {
-        log.error("exceptionHandler,,,\\n {}", e);
+        log.error("ExceptionHandler,,,\\n {}", ExceptionUtils.getStackTrace(e));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(new CommonResponse(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()));
     }
 
-/*    @ExceptionHandler(APIException.class)
+    @ExceptionHandler(APIException.class)
     public ResponseEntity<Object> handleAPIException(APIException e) {
-    }*/
+        log.error("APIExceptionHandler,,,\\n {}", ExceptionUtils.getStackTrace(e));
+        CommonResponse res = new CommonResponse(e.getErrorCode(), e.getErrorMsg());
+
+        return ResponseEntity.status(e.getStatus()).body(res);
+    }
 }
