@@ -1,6 +1,6 @@
 package com.skeleton.repository;
 
-import com.skeleton.model.userInfo.UserInfo;
+import com.skeleton.entity.userInfo.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

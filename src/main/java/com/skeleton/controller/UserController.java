@@ -1,7 +1,7 @@
 package com.skeleton.controller;
 
 import com.skeleton.dto.userInfo.LoginUserInfoDTO;
-import com.skeleton.model.userInfo.UserInfo;
+import com.skeleton.entity.userInfo.UserInfo;
 import com.skeleton.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -55,7 +55,6 @@ public class ExceptionController<T> extends ResponseEntityExceptionHandler imple
     protected ResponseEntity<Object> handleAPIException(APIException e) {
         log.error("APIExceptionHandler : {}", ExceptionUtils.getStackTrace(e));
         CommonResponse res = new CommonResponse(e.getErrorCode(), e.getErrorMsg());
-
         return new ResponseEntity<>(res, ErrorCodeEnum.INTERNAL_SERVER_ERROR.getStatus());
     }
 }

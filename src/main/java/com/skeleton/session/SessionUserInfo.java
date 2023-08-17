@@ -1,6 +1,6 @@
 package com.skeleton.session;
 
-import com.skeleton.model.userInfo.UserInfo;
+import com.skeleton.entity.userInfo.UserInfo;
 import lombok.Data;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;

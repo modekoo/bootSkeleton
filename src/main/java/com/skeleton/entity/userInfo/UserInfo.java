@@ -1,9 +1,9 @@
-package com.skeleton.model.userInfo;
+package com.skeleton.entity.userInfo;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.skeleton.model.companyInfo.CompanyInfo;
-import com.skeleton.model.deptInfo.DeptInfo;
+import com.skeleton.entity.companyInfo.CompanyInfo;
+import com.skeleton.entity.deptInfo.DeptInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

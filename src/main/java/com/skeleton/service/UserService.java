@@ -3,7 +3,7 @@ package com.skeleton.service;
 import com.skeleton.dao.UserDao;
 import com.skeleton.dto.CommonResponse;
 import com.skeleton.dto.userInfo.LoginUserInfoDTO;
-import com.skeleton.model.userInfo.UserInfo;
+import com.skeleton.entity.userInfo.UserInfo;
 import com.skeleton.repository.UserInfoRepository;
 import com.skeleton.session.SessionUserInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +17,8 @@ import java.util.Map;
 @Slf4j
 @Service
 public class UserService {
-
     @Autowired
     UserDao userDao;
-
     @Autowired
     UserInfoRepository userInfoRepository;
     @Resource
